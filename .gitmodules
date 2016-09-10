@@ -1,0 +1,6 @@
+[submodule "multibuild"]
+	path = multibuild
+	url = https://github.com/matthew-brett/multibuild
+[submodule "pywt"]
+	path = pywt
+	url = https://github.com/PyWavelets/pywt
