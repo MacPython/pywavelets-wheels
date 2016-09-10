@@ -9,7 +9,8 @@ env:
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
-      - secure: "VlyOA2JUyOypYAA0/wAD30STBOFhpzAr4PJ4R+P4Rb62M4/j1L9p7SKZepLt2Atjw9C20EceGFyDhHqBRjnLx7JO6+6tF4C5b1HutsaNYlE4bg1mEwcgg3no+lZQjmhOoK3krBTu3cmULhtE0Xyc4FdmrLfIl5u7yvU+Viq6I1w="
+      - secure:
+          "ApKim0Pc/BD2tSnK5Oc52enNeBebKsO6GZ8HxnSQQXioK2n5xStbVnuFNnBgLqkgEND155YGQB7GpuKkcQH204Jle2uLxKZu3tINVqF9v9oAdXaDKnLOLw59aWw9cZrUDKO8GZOWZe5ONEp1kgS3BIJobNayJjB5LagKCgTJf733ngWd6UyaU7encBGuvU2q2DDdogQd/NI964vjEt5D//0mlLeIDd9TuooMdVEi62apj+cBBmvBujXsYWwU6YliOIgmbnMWqlanSSKR6pUkJMmyUZ/2TbLjarwRgX7bEuQmiUrv7ROqOUnAAoas1jSJBLEDgFf8Qsj3XpOC1X0jMLrvaXsUphXT4MuZbI9iJ0ZPl1dWlwctlLZIGt8CuzZ0MWgoRueNgIJOjmGSJT3FQ0jTJdUm8UJOqZ8z1NKFGkug6kK7T0BjYl2pEgZghGibHYigxe99rFe1o7eLoASMMrz6NjVhmFYkGDFuWLQKgekv0KLXbzTVfQ1pvGBuGIObs5u9Kh0k3+UNw2bBHxMkYtPAfO6mW+7f4vgraXBqb5F1yPHdgbaPQU76sufHtj0IjAP4sCoe6mhLk/l8tajJZlkLx1s0zLPolOezcHG4MYtQA78d9Gy23W42gzATAxpWG97HK3WfEK/wkXpNcSSbVQdzlxPFmPFPE2JGV6Jo1DI="
 
 language: python
 # Default Python version is usually 2.7
