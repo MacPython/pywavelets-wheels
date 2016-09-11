@@ -65,7 +65,7 @@ install:
   - pip install wheel==0.26
   - git submodule update --init
   # Dependencies for package
-  - pip install numpy==1.10.4 Cython
+  - pip install numpy==1.10.4 Cython nose
 
 build_script:
   # Build and install the wheel
