@@ -3,10 +3,13 @@ Building and uploading PyWavelets wheels
 ########################################
 
 We automate wheel building using this custom github repository that builds on
-the travis-ci OSX machines and the travis-ci Linux machines.
+the travis-ci OSX machines, travis-ci Linux machines, and the Appveyor VMs.
 
 The travis-ci interface for the builds is
 https://travis-ci.org/MacPython/pywavelets-wheels
+
+Appveyor interface at
+https://ci.appveyor.com/project/matthew-brett/cython-wheels
 
 The driving github repository is
 https://github.com/MacPython/pywavelets-wheels
@@ -38,8 +41,8 @@ directory pointed to by http://wheels.scipy.org.
 Triggering a build
 ==================
 
-You will likely want to edit the ``.travis.yml`` file to specify the
-``BUILD_COMMIT`` before triggering a build - see below.
+You will likely want to edit the ``.travis.yml`` and ``appveyor.yml`` files to
+specify the ``BUILD_COMMIT`` before triggering a build - see below.
 
 You will need write permission to the github repository to trigger new builds
 on the travis-ci interface.  Contact us on the mailing list if you need this.
@@ -57,11 +60,12 @@ Keeping the old build logs helps us keep track of previous problems and
 successful builds.
 
 Which PyWavelets commit does the repository build?
-====================================================
+==================================================
 
-The `PyWavelets-wheels` repository will build the commit specified in the
-``BUILD_COMMIT`` at the top of the ``.travis.yml`` file.  This can be any
-naming of a commit, including branch name, tag name or commit hash.
+The ``pywavelets-wheels`` repository will build the commit specified in the
+``BUILD_COMMIT`` at the top of the ``.travis.yml`` and ``appveyor.yml`` files.
+This can be any naming of a commit, including branch name, tag name or commit
+hash.
 
 Uploading the built wheels to pypi
 ==================================
@@ -90,6 +94,7 @@ be something like::
     CDN_URL=https://3f23b170c54c2533c070-1c8a9b3114517dc5fe17b7c3f8c63a43.ssl.cf2.rackcdn.com
     wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t macosx PyWavelets $VERSION
     wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t manylinux1 PyWavelets $VERSION
+    wheel-uploader -r warehouse -u $CDN_URL -s -v -w ~/wheelhouse -t win PyWavelets $VERSION
 
 where:
 
