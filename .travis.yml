@@ -4,8 +4,8 @@ env:
       - BUILD_COMMIT=v0.5.0
       - PLAT=x86_64
       - UNICODE_WIDTH=32
-      - NP_BUILD_DEP="numpy==1.7.1"
-      - NP_TEST_DEP="numpy==1.7.1"
+      - NP_BUILD_DEP="numpy==1.9.1"
+      - NP_TEST_DEP="numpy==1.9.1"
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
@@ -43,11 +43,9 @@ matrix:
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.8.1
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.8.1
         - PLAT=i686
     - os: linux
       env:
@@ -67,7 +65,6 @@ matrix:
       language: generic
       env:
         - MB_PYTHON_VERSION=3.4
-        - NP_TEST_DEP=numpy==1.8.1
     - os: osx
       language: generic
       env:
