@@ -9,7 +9,7 @@ The travis-ci interface for the builds is
 https://travis-ci.org/MacPython/pywavelets-wheels
 
 Appveyor interface at
-https://ci.appveyor.com/project/matthew-brett/cython-wheels
+https://ci.appveyor.com/project/matthew-brett/pywavelets-wheels
 
 The driving github repository is
 https://github.com/MacPython/pywavelets-wheels
