@@ -5,7 +5,7 @@ env:
       - PLAT=x86_64
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.10.4"
-      - NP_TEST_DEP="numpy==1.10.4"
+      - NP_TEST_DEP="numpy==1.15.4"  # >=1.15 so NumPy uses with pytest
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       - EXTRA_ARGV="'--disable-pytest-warnings'"
       # Following generated with
@@ -29,35 +29,35 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.5
         - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.5
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
+        - NP_TEST_DEP=numpy==1.15.4
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.8
@@ -74,19 +74,19 @@ matrix:
       env:
         - MB_PYTHON_VERSION=3.5
         - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
         - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
+        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
