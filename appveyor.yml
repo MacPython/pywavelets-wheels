@@ -95,7 +95,7 @@ test_script:
   # Run some tests
   - mkdir tmp
   - cd tmp
-  - pip install numpy==%NP_TEST_DEP% pytest nose  # numpy < 1.15 still require nose
+  - pip install numpy==%NP_TEST_DEP% pytest
   - pytest --pyargs pywt
   - cd ..
 

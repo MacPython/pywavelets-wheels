@@ -7,8 +7,15 @@ function pre_build {
     :
 }
 
+function get_test_cmd {
+    local extra_argv=${1:-$EXTRA_ARGV}
+    echo "import sys; import pywt; \
+        sys.exit(not pywt.test('full', \
+        extra_argv=[${extra_argv}]))"
+}
+
 function run_tests {
     # Runs tests on installed distribution from an empty directory
     python --version
-    nosetests ../pywt/pywt/tests
+    python -c "$(get_test_cmd)"
 }
