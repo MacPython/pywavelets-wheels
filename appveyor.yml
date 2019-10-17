@@ -85,8 +85,8 @@ test_script:
   # Run some tests
   - mkdir tmp
   - cd tmp
-  - pip install numpy==%NP_TEST_DEP% nose
-  - nosetests ..\pywt\tests
+  - pip install numpy==%NP_TEST_DEP% pytest
+  - pytest --pyargs pywt
   - cd ..
 
 after_test:

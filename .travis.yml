@@ -7,6 +7,7 @@ env:
       - NP_BUILD_DEP="numpy==1.10.4"
       - NP_TEST_DEP="numpy==1.10.4"
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+      - EXTRA_ARGV="'--disable-pytest-warnings'"
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:
@@ -95,7 +96,7 @@ matrix:
 
 before_install:
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
-    - TEST_DEPENDS="$NP_TEST_DEP nose"
+    - TEST_DEPENDS="$NP_TEST_DEP pytest"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
