@@ -11,34 +11,42 @@ os: Visual Studio 2015
 environment:
     global:
       # Remember to edit .travis.yml too
-      BUILD_COMMIT: v1.0.3
+      BUILD_COMMIT: v1.1.0
       WHEELHOUSE_UPLOADER_USERNAME: travis-worker
       WHEELHOUSE_UPLOADER_SECRET:
         secure:
             9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
-      NP_BUILD_DEP: "1.10.4"
-      NP_TEST_DEP: "1.10.4"
+      NP_BUILD_DEP: "1.13.3"
+      NP_TEST_DEP: "1.15.4"
 
     matrix:
+    - PYTHON: C:\Python38
+      NP_BUILD_DEP: "1.17.3"
+      NP_TEST_DEP: "1.17.3"
+    - PYTHON: C:\Python38-x64
+      NP_BUILD_DEP: "1.17.3"
+      NP_TEST_DEP: "1.17.3"
     - PYTHON: C:\Python37
       NP_BUILD_DEP: "1.14.5"
-      NP_TEST_DEP: "1.14.5"
     - PYTHON: C:\Python37-x64
       NP_BUILD_DEP: "1.14.5"
-      NP_TEST_DEP: "1.14.5"
     - PYTHON: C:\Python36
-      NP_BUILD_DEP: "1.11.3"
-      NP_TEST_DEP: "1.11.3"
     - PYTHON: C:\Python36-x64
-      NP_BUILD_DEP: "1.11.3"
-      NP_TEST_DEP: "1.11.3"
     - PYTHON: C:\Python35
     - PYTHON: C:\Python35-x64
-    - PYTHON: C:\Python27
-    - PYTHON: C:\Python27-x64
 
 install:
-  - cmd: echo "Using cmd"
+  - cmd: echo "Filesystem root:"
+  - dir C:\
+
+  - echo "Installed SDKs:"
+  - dir "C:/Program Files/Microsoft SDKs/Windows"
+
+  # Get needed submodules
+  - git submodule update --init
+
+  # Install new Python if necessary
+  - ps: .\multibuild\install_python.ps1
 
   # Prepend newly installed Python to the PATH of this build (this cannot be
   # done from inside the powershell script as it would require to restart
@@ -54,9 +62,9 @@ install:
   - python --version
   - python -c "import struct; print(struct.calcsize('P') * 8)"
 
-  - python -m pip install --upgrade pip
-  # Pin wheel to 0.26 to avoid Windows ABI tag for built wheel
-  - pip install wheel==0.26
+  # Upgrade to the latest pip, setuptools, and wheel
+  - python -m pip install --upgrade pip setuptools wheel
+
   - git submodule update --init
   # Dependencies for package
   - pip install numpy==%NP_BUILD_DEP% Cython
@@ -81,8 +89,8 @@ test_script:
   # Run some tests
   - mkdir tmp
   - cd tmp
-  - pip install numpy==%NP_TEST_DEP% nose
-  - nosetests ..\pywt\tests
+  - pip install numpy==%NP_TEST_DEP% pytest
+  - pytest --pyargs pywt
   - cd ..
 
 after_test:

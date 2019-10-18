@@ -1,12 +1,13 @@
 env:
   global:
       - REPO_DIR="pywt"
-      - BUILD_COMMIT=v1.0.3
+      - BUILD_COMMIT=v1.1.0
       - PLAT=x86_64
       - UNICODE_WIDTH=32
-      - NP_BUILD_DEP="numpy==1.9.1"
-      - NP_TEST_DEP="numpy==1.9.1"
+      - NP_BUILD_DEP="numpy==1.13.3"
+      - NP_TEST_DEP="numpy==1.15.4"  # >=1.15 so NumPy works with pytest
       - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
+      - EXTRA_ARGV="'--disable-pytest-warnings'"
       # Following generated with
       # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
       - secure:
@@ -26,89 +27,69 @@ matrix:
   include:
     - os: linux
       env:
-        - MB_PYTHON_VERSION=2.7
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=2.7
-        - PLAT=i686
-        - UNICODE_WIDTH=16
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.4
-        - PLAT=i686
-    - os: linux
-      env:
         - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.5
         - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=i686
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
     - os: linux
       env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
-    - os: osx
-      language: generic
-      env: MB_PYTHON_VERSION=2.7
-    - os: osx
-      language: generic
+    - os: linux
       env:
-        - MB_PYTHON_VERSION=3.4
+        - MB_PYTHON_VERSION=3.8
+        - NP_BUILD_DEP=numpy==1.17.3
+        - NP_TEST_DEP=numpy==1.17.3
+    - os: linux
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - PLAT=i686
+        - NP_BUILD_DEP=numpy==1.17.3
+        - NP_TEST_DEP=numpy==1.17.3
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.9.3
-        - NP_TEST_DEP=numpy==1.9.3
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.6
-        - NP_BUILD_DEP=numpy==1.11.3
-        - NP_TEST_DEP=numpy==1.11.3
+        - MB_PYTHON_OSX_VER=10.9
+        - NP_BUILD_DEP=numpy==1.13.3
+        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
         - MB_PYTHON_VERSION=3.7
+        - MB_PYTHON_OSX_VER=10.9
         - NP_BUILD_DEP=numpy==1.14.5
-        - NP_TEST_DEP=numpy==1.14.5
+        - NP_TEST_DEP=numpy==1.15.4
+    - os: osx
+      language: generic
+      env:
+        - MB_PYTHON_VERSION=3.8
+        - MB_PYTHON_OSX_VER=10.9
+        - NP_BUILD_DEP=numpy==1.17.3
+        - NP_TEST_DEP=numpy==1.17.3
 
 before_install:
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
-    - TEST_DEPENDS="$NP_TEST_DEP nose"
+    - TEST_DEPENDS="$NP_TEST_DEP pytest"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
