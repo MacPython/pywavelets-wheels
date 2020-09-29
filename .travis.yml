@@ -41,12 +41,6 @@ jobs:
     - os: osx
       language: generic
       env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.15.4
-    - os: osx
-      language: generic
-      env:
         - MB_PYTHON_VERSION=3.6
         - MB_PYTHON_OSX_VER=10.9
         - NP_BUILD_DEP=numpy==1.13.3
