@@ -83,11 +83,11 @@ test_script:
   # Run some tests
   - mkdir tmp
   - cd tmp
-  - python -m pip install numpy==%NP_TEST_DEP% pytest
+  - python -m pip install numpy==%NP_TEST_DEP% "pytest<6"
   - python -c "import pywt; print(f'pywt version={pywt.__version__}, pywt location={pywt.__file__}')"
   - python -c "import pytest; print(f'pytest version={pytest.__version__}, ptest location={pytest.__file__}')"
-  # - python -m pytest --pyargs pywt
-  - python -c "import pywt; pywt.test()"
+  - python -m pytest --pyargs pywt
+  # - python -c "import pywt; pywt.test()"
   - cd ..
 
 after_test:
