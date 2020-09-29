@@ -28,8 +28,6 @@ environment:
       NP_BUILD_DEP: "1.14.5"
     - PYTHON: C:\Python36
     - PYTHON: C:\Python36-x64
-    - PYTHON: C:\Python35
-    - PYTHON: C:\Python35-x64
 
 install:
   - cmd: echo "Filesystem root:"
@@ -86,7 +84,7 @@ test_script:
   - mkdir tmp
   - cd tmp
   - pip install numpy==%NP_TEST_DEP% pytest
-  - pytest --pyargs pywt
+  - python -m pytest --pyargs pywt
   - cd ..
 
 after_test:
