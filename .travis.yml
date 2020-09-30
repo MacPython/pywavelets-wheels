@@ -81,7 +81,7 @@ after_success:
     # used in Appveyor CI config, originally created at
     # multibuild-wheels-staging site
     - ANACONDA_ORG="multibuild-wheels-staging";
-      TOKEN=${PYWAVELETS_STAGING_UPLOAD_TOKEN};
+    - TOKEN=${PYWAVELETS_STAGING_UPLOAD_TOKEN};
     - pip install git+https://github.com/Anaconda-Server/anaconda-client;
     - if [ -n "${TOKEN}" ] ; then
         anaconda -t ${TOKEN} upload -u ${ANACONDA_ORG} ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl;
