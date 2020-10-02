@@ -99,4 +99,5 @@ on_success:
   - cd ..\pywt
   - cmd: set ANACONDA_ORG="multibuild-wheels-staging"
   - pip install git+https://github.com/Anaconda-Server/anaconda-client
+  - IF NOT "%PYWAVELETS_STAGING_UPLOAD_TOKEN%" == "" echo "anaconda token detected"
   - IF NOT "%PYWAVELETS_STAGING_UPLOAD_TOKEN%" == "" anaconda -t %PYWAVELETS_STAGING_UPLOAD_TOKEN% upload --force -u %ANACONDA_ORG% "dist\*.whl"
