@@ -6,65 +6,38 @@ env:
       - UNICODE_WIDTH=32
       - NP_BUILD_DEP="numpy==1.13.3"
       - NP_TEST_DEP="numpy==1.15.4"  # >=1.15 so NumPy works with pytest
-      - WHEELHOUSE_UPLOADER_USERNAME=travis-worker
       - EXTRA_ARGV="'--disable-pytest-warnings'"
-      # Following generated with
-      # travis encrypt -r scikit-image/scikit-image-wheels WHEELHOUSE_UPLOADER_SECRET=<the api key>
-      - secure:
-          "m2ZsdrZuhsnDztkV/7Xu3sRF8KRTXaZzbeQ7IqvnamT3wbLFl6ZIaSogzDGmsBpcWlPp0VPxo1peYDZodFziqgxrsNncTHDVxMIeTXIYWV/MeF6UYtm/34P81641Tj50eu06CTBhuiIPNVncZti+Np4rWrkSBE8F2kVAfcrRthz8H6J0WF4+8UuN/rVRjtRPwUUnLTHhUlrKpDrsv0rG71HA8pP7iZIheM/hGHDQxqw5eN35ekPjU0Fqz9UBjwxDKk631MqQx7r1aDVdac8OnKw16NQ0YOJXIhomC3HirmlYRYRk8zwvvWtDR83kStXZhrosMNmIHz74TvFxFLyVBtGBDWRdTbjvt2tY8t3U7If8K31nqTMl6T1u+528PVTpmQf4346deFNCZ8HI9RaXPA/1yAxggDBm1D9LasE9HqUypXWvToYwSEFNrApUUMmwGmbJyvh3AI9bbs1QkogPTiNLFJTodzCJG3F28E+lzGA+uYNVSqsa4zV6wFHNpcSFR3bkMj/RfImJKzyb8cBLzhf3Q8t51qva7Ug/ouZY3M5r75Yp9UOU5e/JALipODNv5Y6Ti+lbk/kTUYn/TDXm/MzLt4SMjXfBIbeGKkWaMV4IS6ayrui/K9KEmTGFWp2bXpKyBNft6ka0ipA7C1U/eQ32PIrAeijg6wSn1tUlJag="
 
 language: python
 # Default Python version is usually 2.7
-python: 3.5
-sudo: required
+python: 3.6
 dist: trusty
 services: docker
+os: linux
 
-matrix:
-  exclude:
-      # Exclude the default Python 3.5 build
-      - python: 3.5
+jobs:
   include:
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-    - os: linux
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - PLAT=i686
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.6
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.6
         - PLAT=i686
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.7
         - NP_BUILD_DEP=numpy==1.14.5
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.7
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.14.5
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.8
         - NP_BUILD_DEP=numpy==1.17.3
         - NP_TEST_DEP=numpy==1.17.3
-    - os: linux
-      env:
+    - env:
         - MB_PYTHON_VERSION=3.8
         - PLAT=i686
         - NP_BUILD_DEP=numpy==1.17.3
         - NP_TEST_DEP=numpy==1.17.3
-    - os: osx
-      language: generic
-      env:
-        - MB_PYTHON_VERSION=3.5
-        - NP_BUILD_DEP=numpy==1.13.3
-        - NP_TEST_DEP=numpy==1.15.4
     - os: osx
       language: generic
       env:
@@ -89,7 +62,7 @@ matrix:
 
 before_install:
     - BUILD_DEPENDS="$NP_BUILD_DEP Cython"
-    - TEST_DEPENDS="$NP_TEST_DEP pytest"
+    - TEST_DEPENDS="$NP_TEST_DEP pytest pytest-env"
     - source multibuild/common_utils.sh
     - source multibuild/travis_steps.sh
     - before_install
@@ -103,9 +76,13 @@ script:
     - install_run $PLAT
 
 after_success:
-    # Upload wheels to Rackspace container
-    - pip install wheelhouse-uploader
-    - python -m wheelhouse_uploader upload --local-folder
-          ${TRAVIS_BUILD_DIR}/wheelhouse/
-          --no-update-index
-          wheels
+    # Upload the generated wheel package to anaconda.org
+    # PYWAVELETS_STAGING_UPLOAD_TOKEN is an encrypted variable
+    # used in Appveyor CI config, originally created at
+    # multibuild-wheels-staging site
+    - ANACONDA_ORG="multibuild-wheels-staging";
+    - TOKEN=${PYWAVELETS_STAGING_UPLOAD_TOKEN};
+    - pip install git+https://github.com/Anaconda-Server/anaconda-client;
+    - if [ -n "${TOKEN}" ] ; then
+        anaconda -t ${TOKEN} upload -u ${ANACONDA_ORG} ${TRAVIS_BUILD_DIR}/wheelhouse/*.whl;
+      fi

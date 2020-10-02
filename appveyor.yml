@@ -12,10 +12,6 @@ environment:
     global:
       # Remember to edit .travis.yml too
       BUILD_COMMIT: v1.1.1
-      WHEELHOUSE_UPLOADER_USERNAME: travis-worker
-      WHEELHOUSE_UPLOADER_SECRET:
-        secure:
-            9s0gdDGnNnTt7hvyNpn0/ZzOMGPdwPp2SewFTfGzYk7uI+rdAN9rFq2D1gAP4NQh
       NP_BUILD_DEP: "1.13.3"
       NP_TEST_DEP: "1.15.4"
 
@@ -32,8 +28,6 @@ environment:
       NP_BUILD_DEP: "1.14.5"
     - PYTHON: C:\Python36
     - PYTHON: C:\Python36-x64
-    - PYTHON: C:\Python35
-    - PYTHON: C:\Python35-x64
 
 install:
   - cmd: echo "Filesystem root:"
@@ -89,8 +83,8 @@ test_script:
   # Run some tests
   - mkdir tmp
   - cd tmp
-  - pip install numpy==%NP_TEST_DEP% pytest
-  - pytest --pyargs pywt
+  - python -m pip install numpy==%NP_TEST_DEP% pytest pytest-env
+  - python -m pytest --pyargs pywt
   - cd ..
 
 after_test:
@@ -98,10 +92,11 @@ after_test:
   - dir dist
 
 on_success:
-  # Upload the generated wheel package to Rackspace
-  # On Windows, Apache Libcloud cannot find a standard CA cert bundle so we
-  # disable the ssl checks.
-  - pip install wheelhouse-uploader
-  - python -m wheelhouse_uploader upload
-    --local-folder=dist --no-update-index
-    wheels
+  # Upload the generated wheel package to anaconda.org
+  # PYWAVELETS_STAGING_UPLOAD_TOKEN is an encrypted variable
+  # used in Appveyor CI config, originally created at
+  # multibuild-wheels-staging site
+  - cd ..\pywt
+  - cmd: set ANACONDA_ORG="multibuild-wheels-staging"
+  - pip install git+https://github.com/Anaconda-Server/anaconda-client
+  - IF NOT "%PYWAVELETS_STAGING_UPLOAD_TOKEN%" == "" anaconda -t %PYWAVELETS_STAGING_UPLOAD_TOKEN% upload --force -u %ANACONDA_ORG% "dist\*.whl"
