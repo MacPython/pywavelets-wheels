@@ -6,8 +6,6 @@
 # Builds version specified in BUILD_COMMIT variable
 # To chose version to build, edit value of BUILD_COMMIT
 
-image: Visual Studio 2015
-
 environment:
     global:
       # Remember to edit .travis.yml too
@@ -17,11 +15,9 @@ environment:
 
     matrix:
     - PYTHON: C:\Python39
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       NP_BUILD_DEP: "1.19.4"
       NP_TEST_DEP: "1.19.4"
     - PYTHON: C:\Python39-x64
-      APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
       NP_BUILD_DEP: "1.19.4"
       NP_TEST_DEP: "1.19.4"
     - PYTHON: C:\Python38
@@ -31,7 +27,9 @@ environment:
       NP_BUILD_DEP: "1.17.3"
       NP_TEST_DEP: "1.17.3"
     - PYTHON: C:\Python37
+      NP_BUILD_DEP: "1.14.5"
     - PYTHON: C:\Python37-x64
+      NP_BUILD_DEP: "1.14.5"
 
 install:
   - cmd: echo "Filesystem root:"
