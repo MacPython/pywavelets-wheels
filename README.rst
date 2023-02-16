@@ -1,6 +1,11 @@
-########################################
+This repo is archived
+#####################
+
+Please use the main repo at https://github.com/PyWavelets/pywt
+
+
 Building and uploading PyWavelets wheels
-########################################
+========================================
 
 We automate wheel building using this custom github repository that builds on
 the travis-ci OSX machines, travis-ci Linux machines, and the Appveyor VMs.
